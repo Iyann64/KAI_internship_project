@@ -1,44 +1,39 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Data Akademik - Pendaftaran Magang')
-
-@section('styles')
-
-@endsection
 
 @section('content')
 <div class="container section">
     <div class="registration-container">
-        {{-- Progress Bar --}}
+
         <div class="progress-bar-wrap">
             <div class="progress-step-list">
-                <a href="/pendaftaran/step1-data-diri" class="progress-step-item completed" style="text-decoration: none; color: inherit;">
+                <a href="/pendaftaran/step1-data-diri" class="progress-step-item completed" style="text-decoration:none;color:inherit;">
                     <div class="progress-step-circle"><span>✓</span></div>
                     <span class="progress-step-label">Data Diri</span>
                 </a>
-                <a href="/pendaftaran/step2" class="progress-step-item active" style="text-decoration: none; color: inherit;">
+                <a class="progress-step-item active" style="text-decoration:none;color:inherit;">
                     <div class="progress-step-circle"><span>2</span></div>
                     <span class="progress-step-label">Akademik</span>
                 </a>
-                <a href="/pendaftaran/step3" class="progress-step-item" style="text-decoration: none; color: inherit;">
+                <a class="progress-step-item" style="text-decoration:none;color:inherit;">
                     <div class="progress-step-circle"><span>3</span></div>
                     <span class="progress-step-label">Pilih Unit</span>
                 </a>
-                <a href="/pendaftaran/step4" class="progress-step-item" style="text-decoration: none; color: inherit;">
+                <a class="progress-step-item" style="text-decoration:none;color:inherit;">
                     <div class="progress-step-circle"><span>4</span></div>
                     <span class="progress-step-label">Berkas</span>
                 </a>
-                <a href="/pendaftaran/step5" class="progress-step-item" style="text-decoration: none; color: inherit;">
+                <a class="progress-step-item" style="text-decoration:none;color:inherit;">
                     <div class="progress-step-circle"><span>5</span></div>
                     <span class="progress-step-label">Verifikasi</span>
                 </a>
             </div>
         </div>
 
-        {{-- Form Card --}}
-        <form action="/pendaftaran/simpan-data-akademik" method="POST" class="form-card-kai">
-            @csrf
+        <div id="alertBox"></div>
 
+        <div class="form-card-kai">
             <div class="form-card-header">
                 <span class="form-card-icon">📚</span>
                 <div>
@@ -47,129 +42,164 @@
                 </div>
             </div>
 
-            <!-- Informasi Kampus Section -->
             <div class="form-section">
-                <h3> Informasi Kampus</h3>
-
+                <h3>Informasi Kampus</h3>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nama Kampus <span class="required">*</span></label>
-                        <input type="text" name="nama_kampus" required placeholder="Masukkan nama kampus Anda">
+                        <input type="text" id="universitas" placeholder="Nama lengkap perguruan tinggi">
                     </div>
-                    <div class="form-group">
-                        <label>Program Studi <span class="required">*</span></label>
-                        <input type="text" name="program_studi" required placeholder="Contoh: Teknik Informatika">
-                    </div>
-                </div>
-
-                <div class="form-row">
                     <div class="form-group">
                         <label>Fakultas <span class="required">*</span></label>
-                        <input type="text" name="fakultas" required placeholder="Masukkan nama fakultas">
-                    </div>
-                    <div class="form-group">
-                        <label>Tingkat/Semester <span class="required">*</span></label>
-                        <input type="text" name="tingkat_semester" required placeholder="Contoh: Semester 7">
+                        <input type="text" id="fakultas" placeholder="Contoh: Teknik">
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
-                        <label>IPK Kumulatif <span class="required">*</span></label>
-                        <input type="number" name="ipk_kumulatif" required step="0.01" placeholder="Contoh: 3.50">
-                        <small>Nilai minimal 3.00</small>
+                        <label>Program Studi <span class="required">*</span></label>
+                        <input type="text" id="prodi" placeholder="Contoh: Teknik Informatika">
+                    </div>
+                    <div class="form-group">
+                        <label>Jenjang <span class="required">*</span></label>
+                        <select id="jenjang">
+                            <option value="">-- Pilih --</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Semester <span class="required">*</span></label>
+                        <input type="number" id="semester" min="1" max="14" placeholder="Contoh: 6">
                     </div>
                     <div class="form-group">
                         <label>Tahun Masuk <span class="required">*</span></label>
-                        <input type="number" name="tahun_masuk" required placeholder="Contoh: 2021">
+                        <input type="number" id="tahun_masuk" min="2000" max="2030" placeholder="Contoh: 2022">
                     </div>
                 </div>
-
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>IPK Kumulatif <span class="required">*</span></label>
+                        <input type="number" id="ipk" step="0.01" min="0" max="4" placeholder="Contoh: 3.75">
+                        <small>Nilai 0.00 - 4.00</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Perolehan SKS <span class="required">*</span></label>
+                        <input type="number" id="sks" placeholder="Total SKS yang telah ditempuh">
+                    </div>
+                </div>
                 <div class="form-row full">
                     <div class="form-group">
-                        <label>Alamat Asal Kampus <span class="required">*</span></label>
-                        <textarea name="alamat_kampus" required placeholder="Masukkan alamat lengkap kampus"></textarea>
+                        <label>Alamat Kampus <span class="required">*</span></label>
+                        <textarea id="alamat_kampus" placeholder="Alamat lengkap kampus"></textarea>
+                    </div>
+                </div>
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label>Email Kampus <small style="font-weight:normal;color:#888;">(Opsional)</small></label>
+                        <input type="email" id="email_kampus" placeholder="nim@student.universitas.ac.id">
                     </div>
                 </div>
             </div>
 
-            {{-- Prestasi Section --}}
-            <div class="form-section-kai">
-                <h3 class="form-section-title">Prestasi & Keahlian</h3>
-
-                <div class="form-row full">
-                    <div class="form-group">
-                        <label>Keahlian/Skills Anda <span class="required">*</span></label>
-                        <textarea name="keahlian" required placeholder="Contoh: Java, Python, Database Management, Web Development, etc."></textarea>
-                        <small>Sebutkan keahlian teknis yang Anda miliki</small>
-                    </div>
-                </div>
-
-                <div class="form-row full">
-                    <div class="form-group">
-                        <label>Prestasi/Sertifikasi (Jika Ada)</label>
-                        <textarea name="prestasi" placeholder="Contoh: Juara OSN, Sertifikasi Oracle, etc. (Opsional)"></textarea>
-                        <small>Sebutkan prestasi atau sertifikasi yang pernah Anda raih</small>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Pengalaman Magang Sebelumnya</label>
-                        <select name="pengalaman_magang">
-                            <option value="">-- Pilih Opsi --</option>
-                            <option value="tidak_ada">Tidak Ada</option>
-                            <option value="kurang_3bulan">Kurang dari 3 Bulan</option>
-                            <option value="3_6bulan">3-6 Bulan</option>
-                            <option value="lebih_6bulan">Lebih dari 6 Bulan</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Perolehan SKS</label>
-                        <input type="number" name="perolehan_sks" placeholder="Jumlah SKS yang telah dicapai">
-                    </div>
-                </div>
-            </div>
-
-            {{-- Informasi Dosen Pembimbing Section --}}
-            <div class="form-section-kai">
-                <h3 class="form-section-title">Informasi Dosen Pembimbing</h3>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nama Dosen Pembimbing <span class="required">*</span></label>
-                        <input type="text" name="nama_dosen" required placeholder="Masukkan nama dosen pembimbing">
-                    </div>
-                    <div class="form-group">
-                        <label>NIP Dosen <span class="required">*</span></label>
-                        <input type="text" name="nip_dosen" required placeholder="Masukkan NIP dosen pembimbing">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email Dosen <span class="required">*</span></label>
-                        <input type="email" name="email_dosen" required placeholder="Masukkan email dosen pembimbing">
-                    </div>
-                    <div class="form-group">
-                        <label>No. HP Dosen <span class="required">*</span></label>
-                        <input type="tel" name="no_hp_dosen" required placeholder="Masukkan nomor HP dosen">
-                    </div>
-                </div>
-            </div>
-
-            {{-- Form Actions --}}
             <div class="form-actions-kai">
-                <a href="/pendaftaran/step1-data-diri" class="btn-kai-secondary" style="text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <a href="/pendaftaran/step1-data-diri" class="btn-kai-secondary" style="text-decoration:none;display:flex;align-items:center;gap:8px;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
                     Kembali
                 </a>
-                <button type="submit" class="btn-kai-primary">
+                <button type="button" id="btnNext" onclick="submitStep2()" class="btn-kai-primary">
                     Selanjutnya
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </button>
             </div>
-        </form>
+        </div>
     </div>
 </div>
+
+<script>
+const API_BASE = 'https://unpresiding-encephalic-dawn.ngrok-free.dev/api/v1';
+
+function showAlert(type, msg) {
+    document.getElementById('alertBox').innerHTML = `
+        <div style="padding:12px 16px;border-radius:8px;margin-bottom:16px;
+            background:${type==='danger'?'#fee2e2':'#dcfce7'};
+            border:1px solid ${type==='danger'?'#fca5a5':'#86efac'};
+            color:${type==='danger'?'#991b1b':'#166534'};">
+            ${msg}
+        </div>`;
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function submitStep2() {
+    const pengajuanId = localStorage.getItem('kai_pengajuan_id');
+    if (!pengajuanId) {
+        showAlert('danger', 'Sesi tidak ditemukan. Silakan mulai dari <a href="/pendaftaran/step1-data-diri">Step 1</a>.');
+        return;
+    }
+
+    const body = {
+        universitas: document.getElementById('universitas').value.trim(),
+        fakultas: document.getElementById('fakultas').value.trim(),
+        prodi: document.getElementById('prodi').value.trim(),
+        jenjang: document.getElementById('jenjang').value,
+        semester: parseInt(document.getElementById('semester').value),
+        tahun_masuk: parseInt(document.getElementById('tahun_masuk').value),
+        ipk: parseFloat(document.getElementById('ipk').value),
+        sks: parseInt(document.getElementById('sks').value),
+        alamat_kampus: document.getElementById('alamat_kampus').value.trim(),
+        email_kampus: document.getElementById('email_kampus').value.trim() || null,
+    };
+
+    // Validasi
+    const required = ['universitas','fakultas','prodi','jenjang','alamat_kampus'];
+    for (const key of required) {
+        if (!body[key]) { showAlert('danger', 'Semua field wajib diisi.'); return; }
+    }
+    if (!body.semester || !body.tahun_masuk || isNaN(body.ipk) || !body.sks) {
+        showAlert('danger', 'Lengkapi semua data numerik.'); return;
+    }
+    if (body.ipk < 0 || body.ipk > 4) {
+        showAlert('danger', 'IPK harus antara 0.00 - 4.00'); return;
+    }
+
+    const btn = document.getElementById('btnNext');
+    btn.disabled = true;
+    btn.textContent = 'Menyimpan...';
+
+    try {
+        const res = await fetch(`${API_BASE}/pendaftaran/step2/${pengajuanId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+            },
+            body: JSON.stringify(body),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+            showAlert('danger', data.detail || 'Gagal menyimpan data akademik.');
+            btn.disabled = false;
+            btn.textContent = 'Selanjutnya';
+            return;
+        }
+
+        // Simpan untuk step 5
+        localStorage.setItem('kai_step2', JSON.stringify({
+            universitas: body.universitas,
+            prodi: body.prodi,
+            jenjang: body.jenjang,
+            ipk: body.ipk,
+        }));
+
+        window.location.href = '/pendaftaran/step3';
+    } catch (e) {
+        showAlert('danger', 'Koneksi ke server gagal.');
+        btn.disabled = false;
+        btn.textContent = 'Selanjutnya';
+    }
+}
+</script>
 @endsection
