@@ -12,8 +12,6 @@
     </div>
     <div class="hero-content">
         <div class="hero-text">
-            <div class="hero-logo-wrapper">
-            </div>
             <p class="hero-eyebrow">PROGRAM MAGANG</p>
             <h1 class="hero-title">PT KERETA API<br>INDONESIA</h1>
             <p class="hero-tagline">Bangun kompetensi, pengalaman, dan karier<br>bersama KAI untuk Indonesia.</p>
