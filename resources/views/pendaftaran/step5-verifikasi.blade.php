@@ -261,9 +261,12 @@ async function submitFinal() {
             return;
         }
 
-        // Simpan ID untuk halaman sukses
+        // Simpan referensi status yang tetap dipakai setelah sesi pendaftaran dibersihkan
+        const step1 = JSON.parse(localStorage.getItem('kai_step1') || '{}');
+        localStorage.setItem('kai_status_ref', pengajuanId);
+        localStorage.setItem('kai_status_email', step1.email || '');
         localStorage.setItem('kai_final_id', pengajuanId);
-        localStorage.setItem('kai_final_email', JSON.parse(localStorage.getItem('kai_step1') || '{}').email || '');
+        localStorage.setItem('kai_final_email', step1.email || '');
 
         // Bersihkan data sementara
         ['kai_pengajuan_id','kai_mahasiswa_id','kai_step1','kai_step2','kai_step3','kai_unit_nama'].forEach(k => {

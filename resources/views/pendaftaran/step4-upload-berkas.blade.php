@@ -58,7 +58,7 @@
                         <li>Foto 3x4 latar merah (JPG/PNG)</li>
                         <li>Kartu Tanda Mahasiswa / KTM (PDF/JPG/PNG)</li>
                         <li>Transkrip nilai akademik (PDF)</li>
-                        <li>Curriculum Vitae / CV (PDF)</li>
+                        <li>Dokumen pendukung pengajuan (PDF)</li>
                     </ul>
                 </div>
             </div>
@@ -105,7 +105,7 @@ const ICON_MAP = {
     'Foto 3x4': '📷',
     'KTM (Kartu Tanda Mahasiswa)': '🪪',
     'Transkrip Nilai': '📊',
-    'CV (Curriculum Vitae)': '👤',
+    'Dokumen Pendukung Pengajuan': '📁',
 };
 
 async function loadBerkas() {

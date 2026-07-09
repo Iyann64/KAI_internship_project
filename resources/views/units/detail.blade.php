@@ -135,10 +135,10 @@
         {{-- Kolom Kanan --}}
         <div class="det-detail-side">
             {{-- Dokumen --}}
-            <div class="det-card">
+            <div class="det-card" id="dokumen">
                 <div class="det-card-head">
                     <span class="det-card-icon">📄</span>
-                    <h3>Dokumen</h3>
+                    <h3>Dokumen Persyaratan</h3>
                 </div>
                 <ul class="det-list">
                     @if(isset($unit['dokumen']))
@@ -149,7 +149,7 @@
                         <li><span class="det-emoji-check">📄</span> Surat pengantar dari kampus/universitas</li>
                         <li><span class="det-emoji-check">🪪</span> Kartu Tanda Mahasiswa (KTM) aktif</li>
                         <li><span class="det-emoji-check">📝</span> Proposal magang sesuai format yang ditentukan</li>
-                        <li><span class="det-emoji-check">📄</span> Curriculum Vitae (CV) terbaru</li>
+                        <li><span class="det-emoji-check">📄</span> Dokumen pendukung pengajuan terbaru</li>
                         <li><span class="det-emoji-check">📊</span> Transkrip nilai akademik</li>
                     @endif
                 </ul>

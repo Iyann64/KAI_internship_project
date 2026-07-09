@@ -53,14 +53,10 @@
 
 <script>
 window.onload = () => {
-    const id = localStorage.getItem('kai_final_id');
-    const email = localStorage.getItem('kai_final_email');
+    const id = localStorage.getItem('kai_status_ref') || localStorage.getItem('kai_final_id');
+    const email = localStorage.getItem('kai_status_email') || localStorage.getItem('kai_final_email');
     if (id) document.getElementById('successId').textContent = '#' + id;
     if (email) document.getElementById('successEmail').textContent = email;
-
-    // Bersihkan localStorage final
-    localStorage.removeItem('kai_final_id');
-    localStorage.removeItem('kai_final_email');
 };
 </script>
 @endsection

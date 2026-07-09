@@ -37,7 +37,7 @@ Route::get('/units/{unit}', function ($unitId) {
                 '📄 Surat pengantar dari kampus/universitas',
                 '🪪 Kartu Tanda Mahasiswa (KTM) aktif',
                 '📝 Proposal magang sesuai format yang ditentukan',
-                '📄 Curriculum Vitae (CV) terbaru',
+                '📄 Dokumen pendukung pengajuan terbaru',
                 '📊 Transkrip nilai akademik'
             ],
             'benefit' => [
@@ -85,7 +85,7 @@ Route::get('/units/{unit}', function ($unitId) {
                 '📄 Surat pengantar dari kampus/universitas',
                 '🪪 Kartu Tanda Mahasiswa (KTM) aktif',
                 '📝 Proposal magang',
-                '📄 Curriculum Vitae (CV) terbaru',
+                '📄 Dokumen pendukung pengajuan terbaru',
                 '📊 Transkrip nilai'
             ],
             'benefit' => [
@@ -133,7 +133,7 @@ Route::get('/units/{unit}', function ($unitId) {
                 '📄 Surat pengantar dari kampus',
                 '🪪 KTM aktif',
                 '📝 Proposal magang',
-                '📄 CV terbaru',
+                '📄 Dokumen pendukung pengajuan terbaru',
                 '📊 Transkrip nilai'
             ],
             'benefit' => [
@@ -181,7 +181,7 @@ Route::get('/units/{unit}', function ($unitId) {
                 '📄 Surat pengantar dari kampus',
                 '🪪 KTM aktif',
                 '📝 Proposal magang',
-                '📄 CV terbaru',
+                '📄 Dokumen pendukung pengajuan terbaru',
                 '📊 Transkrip nilai'
             ],
             'benefit' => [
@@ -229,7 +229,7 @@ Route::get('/units/{unit}', function ($unitId) {
                 '📄 Surat pengantar dari kampus',
                 '🪪 KTM aktif',
                 '📝 Proposal magang',
-                '📄 CV terbaru',
+                '📄 Dokumen pendukung pengajuan terbaru',
                 '📊 Transkrip nilai'
             ],
             'benefit' => [
@@ -277,7 +277,7 @@ Route::get('/units/{unit}', function ($unitId) {
                 '📄 Surat pengantar dari kampus',
                 '🪪 KTM aktif',
                 '📝 Proposal magang',
-                '📄 CV terbaru',
+                '📄 Dokumen pendukung pengajuan terbaru',
                 '📊 Transkrip nilai'
             ],
             'benefit' => [
@@ -313,5 +313,6 @@ Route::view('/pendaftaran/step3', 'pendaftaran.step3-pilih-unit');
 Route::view('/pendaftaran/step4', 'pendaftaran.step4-upload-berkas');
 Route::view('/pendaftaran/step5', 'pendaftaran.step5-verifikasi');
 Route::view('/pendaftaran/success', 'pendaftaran.success');
+Route::view('/cek-status', 'status.cek-status');
 Route::view('/contact', 'contact');
 Route::view('/about', 'pages.about');

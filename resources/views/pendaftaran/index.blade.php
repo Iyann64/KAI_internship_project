@@ -66,7 +66,7 @@
                     <li>Surat pengantar dari kampus</li>
                     <li>Kartu Tanda Mahasiswa (KTM)</li>
                     <li>Proposal magang (max 5 halaman)</li>
-                    <li>Curriculum Vitae (CV)</li>
+                    <li>Dokumen pendukung pengajuan</li>
                     <li>Transkip nilai</li>
                 </ul>
             </div>

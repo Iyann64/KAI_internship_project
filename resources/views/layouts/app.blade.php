@@ -26,6 +26,7 @@
                 <li><a href="/about" class="{{ request()->is('about') ? 'active' : '' }}">Tentang</a></li>
                 <li><a href="/units" class="{{ request()->is('units*') ? 'active' : '' }}">Unit Magang</a></li>
                 <li><a href="/pendaftaran" class="{{ request()->is('pendaftaran*') ? 'active' : '' }}">Pendaftaran</a></li>
+                <li><a href="/cek-status" class="{{ request()->is('cek-status') ? 'active' : '' }}">Cek Status</a></li>
                 <li><a href="/contact" class="{{ request()->is('contact') ? 'active' : '' }}">Kontak</a></li>
             </ul>
             <div class="nav-actions">
@@ -40,6 +41,7 @@
             <a href="/about">Tentang</a>
             <a href="/units">Unit Magang</a>
             <a href="/pendaftaran">Pendaftaran</a>
+            <a href="/cek-status">Cek Status</a>
             <a href="/contact">Kontak</a>
             <div class="mobile-actions">
                 <a href="/pendaftaran/step1-data-diri" class="btn-daftar">DAFTAR MAGANG</a>
@@ -134,13 +136,13 @@
                         <li>✅ Bersedia magang sesuai peraturan KAI dan janji unit sistem informasi</li>
                     </ul>
                 </div>
-                <div class="dokumen-box">
-                    <h4>DOKUMEN YANG DIBUTUHKAN</h4>
+                <div class="dokumen-box" id="dokumen-modal">
+                    <h4>DOKUMEN PERSYARATAN PENGAJUAN</h4>
                     <ul>
                         <li>📄 Surat pengantar dari kampus</li>
                         <li>📄 Kartu tanda mahasiswa (KTM)</li>
                         <li>📄 Proposal magang</li>
-                        <li>📄 Curriculum Vitae (CV)</li>
+                        <li>📄 Dokumen pendukung pengajuan terbaru</li>
                         <li>📄 Transkrip nilai</li>
                     </ul>
                 </div>
