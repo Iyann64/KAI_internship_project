@@ -17,7 +17,7 @@
         <div class="nav-container">
             <a href="{{ route('home') }}" class="nav-logo">
                 <div class="logo-box">
-                    <img src="{{ asset('images/logo_KAI.png') }}" alt="Logo KAI" class="hero-logo">
+                    <img src="{{ asset('images/logo-KAI.png') }}" alt="Logo KAI" class="nav-logo-img">
                 </div>
                 <p class="nav-title" style="font-weight: bold; font-style: italic; color: navy;">Internship Program</p>      
             </a>
@@ -158,8 +158,7 @@
         <div class="footer-container">
             <div class="footer-left">
                 <div class="logo-box footer-logo">
-                    <span class="logo-kai">KAI</span>
-                    <span class="logo-sub">kereta api indonesia</span>
+                    <img src="{{ asset('images/logo-KAI.png') }}" alt="Logo KAI" class="footer-logo-img">
                 </div>
                 <p>Drive III Palembang</p>
             </div>

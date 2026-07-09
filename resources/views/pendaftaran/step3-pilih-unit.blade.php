@@ -60,8 +60,18 @@
             </div>
 
             <div class="form-section-kai">
-                <h3 class="form-section-title">Daftar Unit Tersedia</h3>
-                <div class="units-selection" id="unitContainer">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                    <h3 class="form-section-title" style="margin:0;">Daftar Unit Tersedia</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="view-toggle active" onclick="setView('grid')" title="Grid View">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                        </button>
+                        <button class="view-toggle" onclick="setView('list')" title="List View">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="units-selection grid-view" id="unitContainer">
                     <div style="text-align:center;padding:2rem;color:#888;">
                         <span>⏳ Memuat daftar unit...</span>
                     </div>
@@ -137,28 +147,109 @@ async function loadUnits() {
             return;
         }
 
-        container.innerHTML = units.map(u => `
-            <label class="unit-option" onclick="selectUnit(${u.id}, '${u.nama_unit}', this)">
-                <input type="radio" name="unit_id" value="${u.id}">
-                <div class="unit-option-content">
-                    <div class="unit-option-title">${u.nama_unit}</div>
-                    <div class="unit-option-desc">Kode Unit: ${u.kode_unit}</div>
-                    <div class="unit-option-quota">KAI Divre III Palembang</div>
+        const unitIcons = {
+            'Jalan Jembatan': '🛤️', 'Pengamanan': '🛡️', 'Sarana': '🚃',
+            'Akuntan & Fasilitas Penumpang': '🎫', 'Angkutan Barang': '📦',
+            'PBJ (Pengendalian Barang & Jasa)': '📋', 'Keuangan': '💰',
+            'Operasi': '🚆', 'Sinyal & Telekomunikasi (INTEL)': '📡',
+            'Bangunan': '🏗️', 'HUMAS': '📢', 'Hukum': '⚖️',
+            'Aset': '🏛️', 'SDM & Umum': '👥', 'LRT': '🚄', 'Sistem Informasi': '💻'
+        };
+        const unitColors = {
+            'Jalan Jembatan': 'linear-gradient(135deg, #4a5568, #718096)',
+            'Pengamanan': 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+            'Sarana': 'linear-gradient(135deg, #0f766e, #34d399)',
+            'Akuntan & Fasilitas Penumpang': 'linear-gradient(135deg, #6b21a8, #c084fc)',
+            'Angkutan Barang': 'linear-gradient(135deg, #b45309, #f59e0b)',
+            'PBJ (Pengendalian Barang & Jasa)': 'linear-gradient(135deg, #065f46, #10b981)',
+            'Keuangan': 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+            'Operasi': 'linear-gradient(135deg, #0f766e, #34d399)',
+            'Sinyal & Telekomunikasi (INTEL)': 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+            'Bangunan': 'linear-gradient(135deg, #92400e, #fbbf24)',
+            'HUMAS': 'linear-gradient(135deg, #155e75, #22d3ee)',
+            'Hukum': 'linear-gradient(135deg, #b45309, #f59e0b)',
+            'Aset': 'linear-gradient(135deg, #4a5568, #9ca3af)',
+            'SDM & Umum': 'linear-gradient(135deg, #00539f, #00a6d6)',
+            'LRT': 'linear-gradient(135deg, #0d9488, #5eead4)',
+            'Sistem Informasi': 'linear-gradient(135deg, #003087, #0047B8)'
+        };
+        const unitCategories = {
+            'Jalan Jembatan': 'Teknik & Infrastruktur', 'Pengamanan': 'Keamanan',
+            'Sarana': 'Teknik & Perawatan', 'Akuntan & Fasilitas Penumpang': 'Keuangan & Pelayanan',
+            'Angkutan Barang': 'Operasional', 'PBJ (Pengendalian Barang & Jasa)': 'Pengadaan',
+            'Keuangan': 'Keuangan', 'Operasi': 'Operasional',
+            'Sinyal & Telekomunikasi (INTEL)': 'Teknik', 'Bangunan': 'Konstruksi',
+            'HUMAS': 'Komunikasi', 'Hukum': 'Legal',
+            'Aset': 'Manajemen Aset', 'SDM & Umum': 'SDM & Umum',
+            'LRT': 'Operasional', 'Sistem Informasi': 'IT Development'
+        };
+
+        container.innerHTML = units.map(u => {
+            const icon = unitIcons[u.nama_unit] || '🏢';
+            const gradient = unitColors[u.nama_unit] || 'linear-gradient(135deg, #003087, #0047B8)';
+            const category = unitCategories[u.nama_unit] || 'Operasional';
+            return `
+            <label class="unit-card-item" onclick="selectUnit(${u.id}, '${u.nama_unit}', '${icon}', '${(u.deskripsi || 'Unit magang di PT KAI Divre III Palembang.').replace(/'/g, "\\'")}', '${u.kode_unit}', this)">
+                <input type="radio" name="unit_id" value="${u.id}" style="display:none;">
+                <div class="unit-card-wrapper">
+                    <div class="unit-card-icon-box" style="background:${gradient};">
+                        <span class="unit-card-emoji">${icon}</span>
+                    </div>
+                    <div class="unit-card-body">
+                        <div class="unit-card-header">
+                            <h4>${u.nama_unit}</h4>
+                            <span class="unit-card-code">${u.kode_unit}</span>
+                        </div>
+                        <p class="unit-card-desc">${u.deskripsi || 'Unit magang di PT KAI Divre III Palembang.'}</p>
+                        <div class="unit-card-footer">
+                            <span class="unit-card-quota">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                Kuota: ${u.kuota || 'Tersedia'}
+                            </span>
+                            <span class="unit-card-category">${category}</span>
+                        </div>
+                        <button type="button" class="unit-select-btn">Pilih Unit</button>
+                    </div>
                 </div>
             </label>
-        `).join('');
+            `;
+        }).join('');
     } catch (e) {
         document.getElementById('unitContainer').innerHTML =
             '<p style="color:#dc2626;">Gagal memuat daftar unit. Pastikan koneksi ke server aktif.</p>';
     }
 }
 
-function selectUnit(id, nama, el) {
+function selectUnit(id, nama, emoji, desc, code, el) {
     selectedUnitId = id;
-    document.querySelectorAll('.unit-option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.unit-option, .unit-card-item').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
-    el.querySelector('input').checked = true;
+    const input = el.querySelector('input[type="radio"]');
+    if (input) input.checked = true;
+    
+    // Save unit details for verification page
+    const unitData = {
+        unit_id: id,
+        unit_nama: nama,
+        unit_emoji: emoji,
+        unit_desc: desc,
+        unit_code: code
+    };
     localStorage.setItem('kai_unit_nama', nama);
+    localStorage.setItem('kai_unit_data', JSON.stringify(unitData));
+}
+
+function setView(mode, event) {
+    document.querySelectorAll('.view-toggle').forEach(b => b.classList.remove('active'));
+    event.target.closest('.view-toggle').classList.add('active');
+    const container = document.getElementById('unitContainer');
+    if (mode === 'grid') {
+        container.classList.remove('list-view');
+        container.classList.add('grid-view');
+    } else {
+        container.classList.remove('grid-view');
+        container.classList.add('list-view');
+    }
 }
 
 async function submitStep3() {
@@ -207,8 +298,12 @@ async function submitStep3() {
         }
 
         // Simpan untuk step 5
+        const unitData = JSON.parse(localStorage.getItem('kai_unit_data') || '{}');
         localStorage.setItem('kai_step3', JSON.stringify({
             unit_nama: localStorage.getItem('kai_unit_nama'),
+            unit_emoji: unitData.unit_emoji || '',
+            unit_desc: unitData.unit_desc || '',
+            unit_code: unitData.unit_code || '',
             tanggal_mulai,
             tanggal_selesai,
             motivasi,

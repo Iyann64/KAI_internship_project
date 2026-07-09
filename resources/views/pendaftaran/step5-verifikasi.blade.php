@@ -40,70 +40,81 @@
         <div id="alertBox"></div>
 
         <div class="form-card-kai">
-            <div class="form-card-header">
-                <span class="form-card-icon">✅</span>
-                <div>
-                    <h2>Verifikasi & Konfirmasi Data</h2>
-                    <p>Silakan verifikasi semua data yang Anda masukkan</p>
-                </div>
-            </div>
-
-            {{-- Data Diri --}}
-            <div class="form-section-kai">
-                <h3 class="form-section-title">Data Diri</h3>
-                <div class="verification-item">
-                    <div class="verification-label">Nama Lengkap:</div>
-                    <div class="verification-value" id="v-nama">—
-                        <a href="/pendaftaran/step1-data-diri" class="edit-btn">Edit</a>
+            <div class="form-card-header" style="justify-content:space-between;">
+                <div style="display:flex;align-items:flex-start;gap:14px;">
+                    <span class="form-card-icon">✅</span>
+                    <div>
+                        <h2>Verifikasi & Konfirmasi</h2>
+                        <p>Pastikan semua data dan dokumen Anda sudah benar sebelum submitting</p>
                     </div>
                 </div>
-                <div class="verification-item">
-                    <div class="verification-label">NIM:</div>
-                    <div class="verification-value" id="v-nim">—</div>
+                <span class="current-badge">Curren...</span>
+            </div>
+
+            {{-- Leader Section --}}
+            <div class="verification-leader">
+                <div class="leader-badge">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 </div>
-                <div class="verification-item">
-                    <div class="verification-label">Email:</div>
-                    <div class="verification-value" id="v-email">—</div>
-                </div>
-                <div class="verification-item">
-                    <div class="verification-label">No. HP:</div>
-                    <div class="verification-value" id="v-nohp">—</div>
-                </div>
+                <h4>Lengkap! pendaftaran Anda</h4>
+                <p>Periksa kembali seluruh informasi, pilih unit magang tujuan, dan setiap pernyataan di bawah ini untuk melanjutkan.</p>
             </div>
 
             {{-- Data Akademik --}}
             <div class="form-section-kai">
-                <h3 class="form-section-title">Data Akademik</h3>
-                <div class="verification-item">
-                    <div class="verification-label">Nama Kampus:</div>
-                    <div class="verification-value" id="v-universitas">—
-                        <a href="/pendaftaran/step2" class="edit-btn">Edit</a>
+                <div class="verification-section-header">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="section-icon">🎓</span>
+                        <h3 class="form-section-title" style="margin:0;">Ringkasan Data Akademik</h3>
                     </div>
+                    <a href="/pendaftaran/step2" class="edit-btn-header">Edit</a>
                 </div>
-                <div class="verification-item">
-                    <div class="verification-label">Program Studi:</div>
-                    <div class="verification-value" id="v-prodi">—</div>
-                </div>
-                <div class="verification-item">
-                    <div class="verification-label">Jenjang:</div>
-                    <div class="verification-value" id="v-jenjang">—</div>
-                </div>
-                <div class="verification-item">
-                    <div class="verification-label">IPK Kumulatif:</div>
-                    <div class="verification-value" id="v-ipk">—</div>
+                <div class="verification-grid">
+                    <div class="verification-item">
+                        <div class="verification-label">Nama Lengkap</div>
+                        <div class="verification-value" id="v-nama">—</div>
+                    </div>
+                    <div class="verification-item">
+                        <div class="verification-label">NIM</div>
+                        <div class="verification-value" id="v-nim">—</div>
+                    </div>
+                    <div class="verification-item">
+                        <div class="verification-label">Universitas</div>
+                        <div class="verification-value" id="v-universitas">—</div>
+                    </div>
+                    <div class="verification-item">
+                        <div class="verification-label">Program Studi</div>
+                        <div class="verification-value" id="v-prodi">—</div>
+                    </div>
+                    <div class="verification-item">
+                        <div class="verification-label">Jenjang</div>
+                        <div class="verification-value" id="v-jenjang">—</div>
+                    </div>
+                    <div class="verification-item">
+                        <div class="verification-label">IPK Kumulatif</div>
+                        <div class="verification-value" id="v-ipk">—</div>
+                    </div>
                 </div>
             </div>
 
-            {{-- Unit & Periode --}}
+            {{-- Unit Magang --}}
             <div class="form-section-kai">
-                <h3 class="form-section-title">Pilihan Unit Magang</h3>
-                <div class="verification-item">
-                    <div class="verification-label">Unit yang Dipilih:</div>
-                    <div class="verification-value" id="v-unit">—
-                        <a href="/pendaftaran/step3" class="edit-btn">Edit</a>
+                <div class="verification-section-header">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="section-icon">🏢</span>
+                        <h3 class="form-section-title" style="margin:0;">Unit Magang yang Dipilih</h3>
+                    </div>
+                    <a href="/pendaftaran/step3" class="edit-btn-header">Edit</a>
+                </div>
+                <div class="selected-unit-card" id="v-unit-card">
+                    <div class="selected-unit-icon" id="v-unit-emoji">🏢</div>
+                    <div class="selected-unit-info">
+                        <h4 id="v-unit-name">—</h4>
+                        <p id="v-unit-desc">—</p>
+                        <span class="selected-unit-code" id="v-unit-code">—</span>
                     </div>
                 </div>
-                <div class="verification-item">
+                <div class="verification-item" style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(0,48,135,0.06);">
                     <div class="verification-label">Periode Magang:</div>
                     <div class="verification-value" id="v-periode">—</div>
                 </div>
@@ -113,28 +124,71 @@
                 </div>
             </div>
 
-            {{-- Berkas --}}
+            {{-- Periode & Motivasi --}}
             <div class="form-section-kai">
-                <h3 class="form-section-title">Dokumen yang Diupload</h3>
+                <div class="verification-section-header">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="section-icon">📅</span>
+                        <h3 class="form-section-title" style="margin:0;">Periode & Motivasi</h3>
+                    </div>
+                    <a href="/pendaftaran/step3" class="edit-btn-header">Edit</a>
+                </div>
+                <div class="verification-item">
+                    <div class="verification-label">Periode Magang</div>
+                    <div class="verification-value" id="v-periode-detail">—</div>
+                </div>
+                <div class="verification-item">
+                    <div class="verification-label">Motivasi</div>
+                    <div class="verification-value" id="v-motivasi-detail" style="white-space:pre-line;">—</div>
+                </div>
+            </div>
+
+            {{-- Dokumen --}}
+            <div class="form-section-kai">
+                <div class="verification-section-header">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="section-icon">📄</span>
+                        <h3 class="form-section-title" style="margin:0;">Dokumen yang Diunggah</h3>
+                    </div>
+                    <a href="/pendaftaran/step4" class="edit-btn-header">Edit</a>
+                </div>
                 <div id="v-berkas">
                     <div style="color:#888;font-size:0.9rem;">⏳ Memuat status berkas...</div>
                 </div>
             </div>
 
             {{-- Pernyataan --}}
-            <div class="acknowledgement">
-                <h4>Pernyataan & Konfirmasi</h4>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="confirm1">
-                    <label for="confirm1">Saya menyatakan bahwa semua data yang saya isi adalah benar dan dapat dipertanggungjawabkan.</label>
+            <div class="form-section-kai">
+                <div class="verification-section-header">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="section-icon">✓</span>
+                        <h3 class="form-section-title" style="margin:0;">Pernyataan & Konfirmasi</h3>
+                    </div>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="confirm2">
-                    <label for="confirm2">Saya bersedia mengikuti semua peraturan dan ketentuan program magang PT Kereta Api Indonesia.</label>
+                <div class="acknowledgement">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="confirm1">
+                        <label for="confirm1">Saya menyatakan bahwa semua data yang saya isi adalah benar dan dapat dipertanggungjawabkan.</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="confirm2">
+                        <label for="confirm2">Saya bersedia mengikuti semua peraturan dan ketentuan program magang PT Kereta Api Indonesia.</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="confirm3">
+                        <label for="confirm3">Saya memberikan izin kepada PT KAI untuk menggunakan data saya untuk keperluan proses rekrutmen magang.</label>
+                    </div>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="confirm3">
-                    <label for="confirm3">Saya memberikan izin kepada PT KAI untuk menggunakan data saya untuk keperluan proses rekrutmen magang.</label>
+            </div>
+
+            {{-- Data Security --}}
+            <div class="data-security-box">
+                <div class="security-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <div class="security-content">
+                    <h4>Data Anda aman</h4>
+                    <p>Informasi yang Anda berikan akan dirahasiakan dan hanya diproses oleh SDM PT KAI untuk keperluan magang.</p>
                 </div>
             </div>
 
@@ -147,16 +201,6 @@
                     Kirim Pendaftaran
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 </button>
-            </div>
-
-            <div style="background:#e3f2fd;border-left:4px solid #003f7f;padding:1.5rem;border-radius:5px;margin-top:2rem;">
-                <h4 style="color:#003f7f;margin-bottom:0.5rem;">Informasi Penting</h4>
-                <ul style="margin-left:1.5rem;color:#555;font-size:0.9rem;">
-                    <li>Tim SDM akan memverifikasi berkas Anda dalam 2-3 hari kerja</li>
-                    <li>Anda akan menerima notifikasi melalui email setelah verifikasi selesai</li>
-                    <li>Simpan <strong>ID Pengajuan</strong> Anda untuk memantau status pendaftaran</li>
-                    <li>Jika ada pertanyaan, hubungi bagian SDM KAI Divre III Palembang</li>
-                </ul>
             </div>
         </div>
     </div>
@@ -179,24 +223,51 @@ function showAlert(type, msg) {
 function loadSummary() {
     // Data Diri
     const s1 = JSON.parse(localStorage.getItem('kai_step1') || '{}');
-    document.getElementById('v-nama').innerHTML = (s1.nama || '—') + ' <a href="/pendaftaran/step1-data-diri" class="edit-btn">Edit</a>';
-    document.getElementById('v-nim').textContent = s1.nim || '—';
-    document.getElementById('v-email').textContent = s1.email || '—';
-    document.getElementById('v-nohp').textContent = s1.no_hp || '—';
+    const vNama = document.getElementById('v-nama');
+    if (vNama) vNama.innerHTML = (s1.nama || '—') + ' <a href="/pendaftaran/step1-data-diri" class="edit-btn">Edit</a>';
+    const vNim = document.getElementById('v-nim');
+    if (vNim) vNim.textContent = s1.nim || '—';
+    const vEmail = document.getElementById('v-email');
+    if (vEmail) vEmail.textContent = s1.email || '—';
+    const vNohp = document.getElementById('v-nohp');
+    if (vNohp) vNohp.textContent = s1.no_hp || '—';
 
     // Data Akademik
     const s2 = JSON.parse(localStorage.getItem('kai_step2') || '{}');
-    document.getElementById('v-universitas').innerHTML = (s2.universitas || '—') + ' <a href="/pendaftaran/step2" class="edit-btn">Edit</a>';
-    document.getElementById('v-prodi').textContent = s2.prodi || '—';
-    document.getElementById('v-jenjang').textContent = s2.jenjang || '—';
-    document.getElementById('v-ipk').textContent = s2.ipk ? s2.ipk.toFixed(2) : '—';
+    const vUniv = document.getElementById('v-universitas');
+    if (vUniv) vUniv.innerHTML = (s2.universitas || '—') + ' <a href="/pendaftaran/step2" class="edit-btn">Edit</a>';
+    const vProdi = document.getElementById('v-prodi');
+    if (vProdi) vProdi.textContent = s2.prodi || '—';
+    const vJenjang = document.getElementById('v-jenjang');
+    if (vJenjang) vJenjang.textContent = s2.jenjang || '—';
+    const vIpk = document.getElementById('v-ipk');
+    if (vIpk) vIpk.textContent = s2.ipk ? s2.ipk.toFixed(2) : '—';
 
     // Unit & Periode
     const s3 = JSON.parse(localStorage.getItem('kai_step3') || '{}');
-    document.getElementById('v-unit').innerHTML = (s3.unit_nama || '—') + ' <a href="/pendaftaran/step3" class="edit-btn">Edit</a>';
-    document.getElementById('v-periode').textContent = s3.tanggal_mulai && s3.tanggal_selesai
+    const unitName = s3.unit_nama || '—';
+    const unitCode = s3.unit_code || '';
+    const unitEmoji = s3.unit_emoji || '🏢';
+    const unitDesc = s3.unit_desc || '';
+    const periode = s3.tanggal_mulai && s3.tanggal_selesai
         ? `${s3.tanggal_mulai} s/d ${s3.tanggal_selesai}` : '—';
-    document.getElementById('v-motivasi').textContent = s3.motivasi || '—';
+
+    const vUnitName = document.getElementById('v-unit-name');
+    if (vUnitName) vUnitName.textContent = unitName;
+    const vUnitDesc = document.getElementById('v-unit-desc');
+    if (vUnitDesc) vUnitDesc.textContent = unitDesc;
+    const vUnitCode = document.getElementById('v-unit-code');
+    if (vUnitCode) vUnitCode.textContent = unitCode ? `Kode Unit: ${unitCode}` : '';
+    const vUnitEmoji = document.getElementById('v-unit-emoji');
+    if (vUnitEmoji) vUnitEmoji.textContent = unitEmoji;
+    const vPeriode = document.getElementById('v-periode');
+    if (vPeriode) vPeriode.textContent = periode;
+    const vPeriodeDetail = document.getElementById('v-periode-detail');
+    if (vPeriodeDetail) vPeriodeDetail.textContent = periode;
+    const vMotivasi = document.getElementById('v-motivasi');
+    if (vMotivasi) vMotivasi.textContent = s3.motivasi || '—';
+    const vMotivasiDetail = document.getElementById('v-motivasi-detail');
+    if (vMotivasiDetail) vMotivasiDetail.textContent = s3.motivasi || '—';
 }
 
 async function loadBerkasStatus() {
