@@ -508,10 +508,10 @@ Route::get('/units/{unit}', function ($unitId) {
                 'Jaringan profesional logistik'
             ],
             'gallery' => [
-                ['img' => asset('images/Unit Angkutan Barang/7AD60EDE-14D8-4F2C-80ED-741735F68772.jpeg'), 'label' => 'Barang'],
-                ['img' => asset('images/Unit Angkutan Barang/5948d4eb7d1c7070351618.jpeg'), 'label' => 'Kargo'],
+                ['img' => asset('images/Unit Angkutan Barang/7AD60EDE-14D8-4F2C-80ED-741735F68772.jpeg'), 'label' => 'Logistik'],
+                ['img' => asset('images/Unit Angkutan Barang/5948d4eb7d1c7070351618.jpeg'), 'label' => 'Batu Bara'],
                 ['img' => asset('images/Unit Angkutan Barang/img_news_1773721553-d33caa4f81.jpeg'), 'label' => 'Admin'],
-                ['img' => asset('images/Unit Angkutan Barang/Screenshot_20260606-193257.jpg'), 'label' => 'Logistik']
+                ['img' => asset('images/Unit Angkutan Barang/Screenshot_20260606-193257.jpg'), 'label' => 'Minyak dan Gas']
             ],
             'gradient' => 'linear-gradient(135deg, #b45309 0%, #f59e0b 40%, #003087 100%)',
             'img_gradient' => 'linear-gradient(135deg, #b45309, #f59e0b)',
