@@ -31,6 +31,8 @@
                 <li><a href="/contact" class="{{ request()->is('contact') ? 'active' : '' }}">Kontak</a></li>
             </ul>
             <div class="nav-actions">
+                <a href="{{ route('login') }}" class="btn-masuk">MASUK</a>
+                <a href="{{ route('register') }}" class="btn-daftar">DAFTAR</a>
                 <a href="/pendaftaran/step1-data-diri" class="btn-daftar">DAFTAR MAGANG</a>
             </div>
             <button class="hamburger" id="hamburger" onclick="toggleMobile()">
@@ -45,6 +47,8 @@
             <a href="/cek-status">Cek Status</a>
             <a href="/contact">Kontak</a>
             <div class="mobile-actions">
+                <a href="{{ route('login') }}" class="btn-masuk">MASUK</a>
+                <a href="{{ route('register') }}" class="btn-daftar">DAFTAR</a>
                 <a href="/pendaftaran/step1-data-diri" class="btn-daftar">DAFTAR MAGANG</a>
             </div>
         </div>

@@ -122,6 +122,24 @@
 <script>
 const API_BASE = 'https://unpresiding-encephalic-dawn.ngrok-free.dev/api/v1';
 let selectedUnitId = null;
+const AVAILABLE_UNITS = [
+    { id: 1, nama_unit: 'Jalan Jembatan', kode_unit: 'JJ-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang menangani pemeliharaan jalan rel dan jembatan.' },
+    { id: 2, nama_unit: 'Pengamanan', kode_unit: 'PAM-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang menjaga keamanan dan ketertiban operasional.' },
+    { id: 3, nama_unit: 'Sarana', kode_unit: 'SAR-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang mengelola perawatan sarana kereta api.' },
+    { id: 4, nama_unit: 'Akuntan & Fasilitas Penumpang', kode_unit: 'AFP-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang menangani akuntansi dan fasilitas penumpang.' },
+    { id: 5, nama_unit: 'Angkutan Barang', kode_unit: 'AB-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang mengelola angkutan barang dan logistik.' },
+    { id: 6, nama_unit: 'PBJ (Pengendalian Barang & Jasa)', kode_unit: 'PBJ-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang menangani pengadaan barang dan jasa.' },
+    { id: 7, nama_unit: 'Keuangan', kode_unit: 'KEU-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang menangani pengelolaan keuangan perusahaan.' },
+    { id: 8, nama_unit: 'Operasi', kode_unit: 'OPS-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang mendukung operasional perjalanan kereta api.' },
+    { id: 9, nama_unit: 'Sinyal & Telekomunikasi (INTEL)', kode_unit: 'INT-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang mengelola sistem persinyalan dan telekomunikasi.' },
+    { id: 10, nama_unit: 'Bangunan', kode_unit: 'BGN-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang bertanggung jawab dalam pembangunan dan pemeliharaan bangunan.' },
+    { id: 11, nama_unit: 'HUMAS', kode_unit: 'HUM-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang mengelola komunikasi publik dan hubungan masyarakat.' },
+    { id: 12, nama_unit: 'Hukum', kode_unit: 'HUK-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang menangani aspek hukum dan kepatuhan perusahaan.' },
+    { id: 13, nama_unit: 'Aset', kode_unit: 'ASE-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang mengelola inventaris dan aset perusahaan.' },
+    { id: 14, nama_unit: 'SDM & Umum', kode_unit: 'SDM-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang menangani pengelolaan SDM dan urusan umum.' },
+    { id: 15, nama_unit: 'LRT', kode_unit: 'LRT-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang mengelola operasional dan pemeliharaan LRT.' },
+    { id: 16, nama_unit: 'Sistem Informasi', kode_unit: 'SI-001', kuota: 'Tersedia', deskripsi: 'Unit magang di PT KAI Divre III Palembang yang mengembangkan aplikasi dan infrastruktur IT.' }
+];
 
 function showAlert(type, msg) {
     document.getElementById('alertBox').innerHTML = `
@@ -134,90 +152,82 @@ function showAlert(type, msg) {
     window.scrollTo({top:0,behavior:'smooth'});
 }
 
-async function loadUnits() {
-    try {
-        const res = await fetch(`${API_BASE}/units/`, {
-            headers: { 'ngrok-skip-browser-warning': 'true' }
-        });
-        const units = await res.json();
-        const container = document.getElementById('unitContainer');
+function loadUnits() {
+    const container = document.getElementById('unitContainer');
+    const units = AVAILABLE_UNITS;
 
-        if (!units.length) {
-            container.innerHTML = '<p style="color:#888;">Tidak ada unit tersedia saat ini.</p>';
-            return;
-        }
-
-        const unitIcons = {
-            'Jalan Jembatan': '🛤️', 'Pengamanan': '🛡️', 'Sarana': '🚃',
-            'Akuntan & Fasilitas Penumpang': '🎫', 'Angkutan Barang': '📦',
-            'PBJ (Pengendalian Barang & Jasa)': '📋', 'Keuangan': '💰',
-            'Operasi': '🚆', 'Sinyal & Telekomunikasi (INTEL)': '📡',
-            'Bangunan': '🏗️', 'HUMAS': '📢', 'Hukum': '⚖️',
-            'Aset': '🏛️', 'SDM & Umum': '👥', 'LRT': '🚄', 'Sistem Informasi': '💻'
-        };
-        const unitColors = {
-            'Jalan Jembatan': 'linear-gradient(135deg, #4a5568, #718096)',
-            'Pengamanan': 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
-            'Sarana': 'linear-gradient(135deg, #0f766e, #34d399)',
-            'Akuntan & Fasilitas Penumpang': 'linear-gradient(135deg, #6b21a8, #c084fc)',
-            'Angkutan Barang': 'linear-gradient(135deg, #b45309, #f59e0b)',
-            'PBJ (Pengendalian Barang & Jasa)': 'linear-gradient(135deg, #065f46, #10b981)',
-            'Keuangan': 'linear-gradient(135deg, #7c3aed, #a78bfa)',
-            'Operasi': 'linear-gradient(135deg, #0f766e, #34d399)',
-            'Sinyal & Telekomunikasi (INTEL)': 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
-            'Bangunan': 'linear-gradient(135deg, #92400e, #fbbf24)',
-            'HUMAS': 'linear-gradient(135deg, #155e75, #22d3ee)',
-            'Hukum': 'linear-gradient(135deg, #b45309, #f59e0b)',
-            'Aset': 'linear-gradient(135deg, #4a5568, #9ca3af)',
-            'SDM & Umum': 'linear-gradient(135deg, #00539f, #00a6d6)',
-            'LRT': 'linear-gradient(135deg, #0d9488, #5eead4)',
-            'Sistem Informasi': 'linear-gradient(135deg, #003087, #0047B8)'
-        };
-        const unitCategories = {
-            'Jalan Jembatan': 'Teknik & Infrastruktur', 'Pengamanan': 'Keamanan',
-            'Sarana': 'Teknik & Perawatan', 'Akuntan & Fasilitas Penumpang': 'Keuangan & Pelayanan',
-            'Angkutan Barang': 'Operasional', 'PBJ (Pengendalian Barang & Jasa)': 'Pengadaan',
-            'Keuangan': 'Keuangan', 'Operasi': 'Operasional',
-            'Sinyal & Telekomunikasi (INTEL)': 'Teknik', 'Bangunan': 'Konstruksi',
-            'HUMAS': 'Komunikasi', 'Hukum': 'Legal',
-            'Aset': 'Manajemen Aset', 'SDM & Umum': 'SDM & Umum',
-            'LRT': 'Operasional', 'Sistem Informasi': 'IT Development'
-        };
-
-        container.innerHTML = units.map(u => {
-            const icon = unitIcons[u.nama_unit] || '🏢';
-            const gradient = unitColors[u.nama_unit] || 'linear-gradient(135deg, #003087, #0047B8)';
-            const category = unitCategories[u.nama_unit] || 'Operasional';
-            return `
-            <label class="unit-card-item" onclick="selectUnit(${u.id}, '${u.nama_unit}', '${icon}', '${(u.deskripsi || 'Unit magang di PT KAI Divre III Palembang.').replace(/'/g, "\\'")}', '${u.kode_unit}', this)">
-                <input type="radio" name="unit_id" value="${u.id}" style="display:none;">
-                <div class="unit-card-wrapper">
-                    <div class="unit-card-icon-box" style="background:${gradient};">
-                        <span class="unit-card-emoji">${icon}</span>
-                    </div>
-                    <div class="unit-card-body">
-                        <div class="unit-card-header">
-                            <h4>${u.nama_unit}</h4>
-                            <span class="unit-card-code">${u.kode_unit}</span>
-                        </div>
-                        <p class="unit-card-desc">${u.deskripsi || 'Unit magang di PT KAI Divre III Palembang.'}</p>
-                        <div class="unit-card-footer">
-                            <span class="unit-card-quota">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                                Kuota: ${u.kuota || 'Tersedia'}
-                            </span>
-                            <span class="unit-card-category">${category}</span>
-                        </div>
-                        <button type="button" class="unit-select-btn">Pilih Unit</button>
-                    </div>
-                </div>
-            </label>
-            `;
-        }).join('');
-    } catch (e) {
-        document.getElementById('unitContainer').innerHTML =
-            '<p style="color:#dc2626;">Gagal memuat daftar unit. Pastikan koneksi ke server aktif.</p>';
+    if (!units.length) {
+        container.innerHTML = '<p style="color:#888;">Tidak ada unit tersedia saat ini.</p>';
+        return;
     }
+
+    const unitIcons = {
+        'Jalan Jembatan': '🛤️', 'Pengamanan': '🛡️', 'Sarana': '🚃',
+        'Akuntan & Fasilitas Penumpang': '🎫', 'Angkutan Barang': '📦',
+        'PBJ (Pengendalian Barang & Jasa)': '📋', 'Keuangan': '💰',
+        'Operasi': '🚆', 'Sinyal & Telekomunikasi (INTEL)': '📡',
+        'Bangunan': '🏗️', 'HUMAS': '📢', 'Hukum': '⚖️',
+        'Aset': '🏛️', 'SDM & Umum': '👥', 'LRT': '🚄', 'Sistem Informasi': '💻'
+    };
+    const unitColors = {
+        'Jalan Jembatan': 'linear-gradient(135deg, #4a5568, #718096)',
+        'Pengamanan': 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+        'Sarana': 'linear-gradient(135deg, #0f766e, #34d399)',
+        'Akuntan & Fasilitas Penumpang': 'linear-gradient(135deg, #6b21a8, #c084fc)',
+        'Angkutan Barang': 'linear-gradient(135deg, #b45309, #f59e0b)',
+        'PBJ (Pengendalian Barang & Jasa)': 'linear-gradient(135deg, #065f46, #10b981)',
+        'Keuangan': 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+        'Operasi': 'linear-gradient(135deg, #0f766e, #34d399)',
+        'Sinyal & Telekomunikasi (INTEL)': 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+        'Bangunan': 'linear-gradient(135deg, #92400e, #fbbf24)',
+        'HUMAS': 'linear-gradient(135deg, #155e75, #22d3ee)',
+        'Hukum': 'linear-gradient(135deg, #b45309, #f59e0b)',
+        'Aset': 'linear-gradient(135deg, #4a5568, #9ca3af)',
+        'SDM & Umum': 'linear-gradient(135deg, #00539f, #00a6d6)',
+        'LRT': 'linear-gradient(135deg, #0d9488, #5eead4)',
+        'Sistem Informasi': 'linear-gradient(135deg, #003087, #0047B8)'
+    };
+    const unitCategories = {
+        'Jalan Jembatan': 'Teknik & Infrastruktur', 'Pengamanan': 'Keamanan',
+        'Sarana': 'Teknik & Perawatan', 'Akuntan & Fasilitas Penumpang': 'Keuangan & Pelayanan',
+        'Angkutan Barang': 'Operasional', 'PBJ (Pengendalian Barang & Jasa)': 'Pengadaan',
+        'Keuangan': 'Keuangan', 'Operasi': 'Operasional',
+        'Sinyal & Telekomunikasi (INTEL)': 'Teknik', 'Bangunan': 'Konstruksi',
+        'HUMAS': 'Komunikasi', 'Hukum': 'Legal',
+        'Aset': 'Manajemen Aset', 'SDM & Umum': 'SDM & Umum',
+        'LRT': 'Operasional', 'Sistem Informasi': 'IT Development'
+    };
+
+    container.innerHTML = units.map(u => {
+        const icon = unitIcons[u.nama_unit] || '🏢';
+        const gradient = unitColors[u.nama_unit] || 'linear-gradient(135deg, #003087, #0047B8)';
+        const category = unitCategories[u.nama_unit] || 'Operasional';
+        return `
+        <label class="unit-card-item" onclick="selectUnit(${u.id}, '${u.nama_unit}', '${icon}', '${(u.deskripsi || 'Unit magang di PT KAI Divre III Palembang.').replace(/'/g, "\\'")}', '${u.kode_unit}', this)">
+            <input type="radio" name="unit_id" value="${u.id}" style="display:none;">
+            <div class="unit-card-wrapper">
+                <div class="unit-card-icon-box" style="background:${gradient};">
+                    <span class="unit-card-emoji">${icon}</span>
+                </div>
+                <div class="unit-card-body">
+                    <div class="unit-card-header">
+                        <h4>${u.nama_unit}</h4>
+                        <span class="unit-card-code">${u.kode_unit}</span>
+                    </div>
+                    <p class="unit-card-desc">${u.deskripsi}</p>
+                    <div class="unit-card-footer">
+                        <span class="unit-card-quota">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Kuota: ${u.kuota || 'Tersedia'}
+                        </span>
+                        <span class="unit-card-category">${category}</span>
+                    </div>
+                    <button type="button" class="unit-select-btn">Pilih Unit</button>
+                </div>
+            </div>
+        </label>
+        `;
+    }).join('');
 }
 
 function selectUnit(id, nama, emoji, desc, code, el) {
